@@ -17,6 +17,7 @@ url: http://vfiv.github.io/
 root: /public
 permalink: :year/:month/:day/:title/
 permalink_defaults:
+duoshuo_shortname: vFiv
 
 # Directory
 source_dir: source
