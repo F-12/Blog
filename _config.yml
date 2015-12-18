@@ -17,7 +17,7 @@ url: http://vfiv.github.io/
 root: /public
 permalink: :year/:month/:day/:title/
 permalink_defaults:
-duoshuo_shortname: vFiv
+duoshuo_shortname: vfiv
 
 # Directory
 source_dir: source
@@ -30,7 +30,7 @@ i18n_dir: :lang
 skip_render:
 
 # Writing
-new_post_name: :title.md # File name of new posts
+new_post_name: :year-:month-:day-:title.md # File name of new posts
 default_layout: post
 titlecase: false # Transform title into titlecase
 external_link: false # Open external links in new tab
@@ -66,6 +66,31 @@ pagination_dir: page
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
 theme: next
+
+# socials
+social:
+  Github: https://github.com/vFiv
+  知乎: https://www.zhihu.com/people/vFiv
+  Lofter: http://axiswhistle.lofter.com
+
+# share
+jiathis: true
+
+# analytics
+google_analytics: UA-71590236-1
+# title, chinese available
+links_title: Links
+# links
+links:
+  MacTalk: http://macshuo.com/
+  IIssNan's Note: http://notes.iissnan.com/
+
+# rss feed
+feed:
+  type: rss2
+  path: rss.xml
+  limit: 20
+  hub:
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html

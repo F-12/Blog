@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title><![CDATA[十二]]></title>
+    <link>http://vfiv.github.io/</link>
+    <atom:link href="/public/rss.xml" rel="self" type="application/rss+xml"/>
+    <description><![CDATA[一点一点做，一步一步来]]></description>
+    <pubDate>Fri, 18 Dec 2015 16:17:44 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[博客建设日志]]></title>
+      <link>http://vfiv.github.io/2015/12/18/BlogLog/</link>
+      <guid>http://vfiv.github.io/2015/12/18/BlogLog/</guid>
+      <pubDate>Fri, 18 Dec 2015 13:39:32 GMT</pubDate>
+      <description>
+      <![CDATA[<ul>
+<li>2015-12-18: 配置NexT主题（感谢作者iissnan）</li>
+</ul>
+]]>
+      </description>
+      <content:encoded><![CDATA[<ul>
+<li>2015-12-18: 配置NexT主题（感谢作者iissnan）</li>
+</ul>
+]]></content:encoded>
+      <comments>http://vfiv.github.io/2015/12/18/BlogLog/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[FirstPost]]></title>
+      <link>http://vfiv.github.io/2015/12/18/FirstPost/</link>
+      <guid>http://vfiv.github.io/2015/12/18/FirstPost/</guid>
+      <pubDate>Fri, 18 Dec 2015 00:32:47 GMT</pubDate>
+      <description>
+      
+      </description>
+      <content:encoded></content:encoded>
+      <comments>http://vfiv.github.io/2015/12/18/FirstPost/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[Hello World]]></title>
+      <link>http://vfiv.github.io/2015/12/18/hello-world/</link>
+      <guid>http://vfiv.github.io/2015/12/18/hello-world/</guid>
+      <pubDate>Thu, 17 Dec 2015 16:25:16 GMT</pubDate>
+      <description>
+      <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for m]]>
+      </description>
+      <content:encoded><![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content:encoded>
+      <comments>http://vfiv.github.io/2015/12/18/hello-world/#disqus_thread</comments>
+    </item>
+    
+  </channel>
+</rss>
