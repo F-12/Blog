@@ -7,7 +7,7 @@
     <link>http://vfiv.github.io/</link>
     <atom:link href="/public/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[一点一点做，一步一步来]]></description>
-    <pubDate>Fri, 18 Dec 2015 16:17:44 GMT</pubDate>
+    <pubDate>Fri, 18 Dec 2015 17:21:59 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -34,9 +34,10 @@
       <guid>http://vfiv.github.io/2015/12/18/FirstPost/</guid>
       <pubDate>Fri, 18 Dec 2015 00:32:47 GMT</pubDate>
       <description>
-      
+      <![CDATA[<h1 id="Section1"><a href="#Section1" class="headerlink" title="Section1"></a>Section1</h1><p>this is a section demo<br>this is a section de]]>
       </description>
-      <content:encoded></content:encoded>
+      <content:encoded><![CDATA[<h1 id="Section1"><a href="#Section1" class="headerlink" title="Section1"></a>Section1</h1><p>this is a section demo<br>this is a section demo<br>this is a section demo<br>this is a section demo<br>this is a section demo</p>
+<h1 id="Section2"><a href="#Section2" class="headerlink" title="Section2"></a>Section2</h1>]]></content:encoded>
       <comments>http://vfiv.github.io/2015/12/18/FirstPost/#disqus_thread</comments>
     </item>
     
