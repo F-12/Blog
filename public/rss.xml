@@ -7,7 +7,7 @@
     <link>http://vFix.github.io/</link>
     <atom:link href="/public/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[一点一点做，一步一步来]]></description>
-    <pubDate>Wed, 06 Jan 2016 16:54:05 GMT</pubDate>
+    <pubDate>Wed, 06 Jan 2016 17:12:47 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -201,11 +201,13 @@
       <description>
       <![CDATA[<ul>
 <li>2015-12-18: 配置NexT主题（感谢作者iissnan）</li>
+<li>2016-01-07: 增加社交账户主页链接</li>
 </ul>
 ]]>
       </description>
       <content:encoded><![CDATA[<ul>
 <li>2015-12-18: 配置NexT主题（感谢作者iissnan）</li>
+<li>2016-01-07: 增加社交账户主页链接</li>
 </ul>
 ]]></content:encoded>
       <comments>http://vFix.github.io/2015/12/18/BlogLog/#disqus_thread</comments>

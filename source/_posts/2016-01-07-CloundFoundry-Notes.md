@@ -1,5 +1,5 @@
 title: CloundFoundry使用笔记
-tags: Notes
+tags: Note, Clound
 date: 2016-01-07 00:54:05
 ---
 
