@@ -7,7 +7,7 @@
     <link>http://vFix.github.io/</link>
     <atom:link href="/public/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[一点一点做，一步一步来]]></description>
-    <pubDate>Wed, 06 Jan 2016 17:12:47 GMT</pubDate>
+    <pubDate>Wed, 06 Jan 2016 17:21:37 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
@@ -36,7 +36,7 @@
 <li>应用启动可用</li>
 </ul>
 <p><strong>应用相关</strong>  </p>
-</li>
+<ul>
 <li>部署准备：cloud-ready，resources，service instances，buildpack</li>
 <li>Credentials and Target<ul>
 <li>API endpoint（</li>
@@ -46,6 +46,8 @@
 </li>
 <li>域名配置</li>
 <li>部署选项：设置选项值，配置环境变量</li>
+</ul>
+</li>
 </ul>
 <h1 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h1><h2 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h2><ul>
 <li><strong>Services</strong>  <ul>
@@ -100,7 +102,7 @@
 </ul>
 <p><strong>Make Plans Public</strong>  </p>
 <ul>
-<li>默认注册后为私有的<br>-</li>
+<li>默认注册后为私有的</li>
 </ul>
 <h2 id="Catalog_Metadata"><a href="#Catalog_Metadata" class="headerlink" title="Catalog Metadata"></a>Catalog Metadata</h2><ul>
 <li>Services Marketplace聚集各个Service</li>

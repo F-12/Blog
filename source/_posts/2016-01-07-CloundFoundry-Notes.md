@@ -25,13 +25,13 @@ Designing and Running an Application in the Cloud
   - 应用启动可用
 
   **应用相关**  
-- 部署准备：cloud-ready，resources，service instances，buildpack
-- Credentials and Target
-  - API endpoint（
-  - username and password
-  - workspace -> organization -> space
-- 域名配置
-- 部署选项：设置选项值，配置环境变量
+  - 部署准备：cloud-ready，resources，service instances，buildpack
+  - Credentials and Target
+    - API endpoint（
+    - username and password
+    - workspace -> organization -> space
+  - 域名配置
+  - 部署选项：设置选项值，配置环境变量
 
 # Services
 ## Terminology
@@ -65,6 +65,7 @@ Service key：手动维护的service实例凭证
 - Service Keys
 
 # 自定义Services
+
 ## Service Broker
 ### 架构图 ![架构图](http://docs.cloudfoundry.org/services/images/managed-services.png)
 ### [Service Broker API](http://docs.cloudfoundry.org/services/api.html)
@@ -81,7 +82,6 @@ Service key：手动维护的service实例凭证
 
 **Make Plans Public**  
 - 默认注册后为私有的
--
 
 ## Catalog Metadata
 - Services Marketplace聚集各个Service
