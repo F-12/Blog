@@ -41,7 +41,7 @@
 <link href="/public/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="axis, 十二, hexo" />
+  <meta name="keywords" content="Node," />
 
 
 
@@ -59,19 +59,58 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="本文是阅读The Node Beginner Book后的总结
+用例功能描述
+
+http://domain/start展示欢迎页，提供一个文件上传按钮
+http://domain/upload展示提交后的文件内容
+
+设计考虑
+
+功能模块化
+非阻塞
+依赖注入
+
+模块分析
+处理HTTP请求——server：使用http包负责创建启动server
+处理不同请求路径——router：负责匹配request">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://vFix.github.io/2015/12/18/hello-world/index.html">
+<meta property="og:title" content="Node-App设计">
+<meta property="og:url" content="http://vFix.github.io/2015/12/25/Node-App设计-01/index.html">
 <meta property="og:site_name" content="十二">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2015-12-17T16:25:16.000Z">
+<meta property="og:description" content="本文是阅读The Node Beginner Book后的总结
+用例功能描述
+
+http://domain/start展示欢迎页，提供一个文件上传按钮
+http://domain/upload展示提交后的文件内容
+
+设计考虑
+
+功能模块化
+非阻塞
+依赖注入
+
+模块分析
+处理HTTP请求——server：使用http包负责创建启动server
+处理不同请求路径——router：负责匹配request">
+<meta property="og:updated_time" content="2015-12-25T10:11:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="Node-App设计">
+<meta name="twitter:description" content="本文是阅读The Node Beginner Book后的总结
+用例功能描述
+
+http://domain/start展示欢迎页，提供一个文件上传按钮
+http://domain/upload展示提交后的文件内容
+
+设计考虑
+
+功能模块化
+非阻塞
+依赖注入
+
+模块分析
+处理HTTP请求——server：使用http包负责创建启动server
+处理不同请求路径——router：负责匹配request">
 
 
 
@@ -89,7 +128,7 @@ Quick">
   };
 </script>
 
-  <title> Hello World | 十二 </title>
+  <title> Node-App设计 | 十二 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -236,7 +275,7 @@ Quick">
             
             
               
-                Hello World
+                Node-App设计
               
             
           </h1>
@@ -248,8 +287,8 @@ Quick">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-12-18T00:25:16+08:00" content="2015-12-17">
-              2015-12-17
+            <time itemprop="dateCreated" datetime="2015-12-25T22:47:16+08:00" content="2015-12-25">
+              2015-12-25
             </time>
           </span>
 
@@ -259,8 +298,8 @@ Quick">
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/public/2015/12/18/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/18/hello-world/" itemprop="commentsCount"></span>
+                <a href="/public/2015/12/25/Node-App设计-01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/25/Node-App设计-01/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -281,32 +320,73 @@ Quick">
       
 
       
-        <p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html">Deployment</a></p>
+        <p>本文是阅读<em>The Node Beginner Book</em>后的总结</p>
+<h2 id="u7528_u4F8B"><a href="#u7528_u4F8B" class="headerlink" title="用例"></a>用例</h2><p><strong>功能描述</strong></p>
+<ul>
+<li><a href="http://domain/start展示欢迎页，提供一个文件上传按钮">http://domain/start展示欢迎页，提供一个文件上传按钮</a></li>
+<li><a href="http://domain/upload展示提交后的文件内容">http://domain/upload展示提交后的文件内容</a></li>
+</ul>
+<p><strong>设计考虑</strong></p>
+<ul>
+<li>功能模块化</li>
+<li>非阻塞</li>
+<li>依赖注入</li>
+</ul>
+<h2 id="u6A21_u5757_u5206_u6790"><a href="#u6A21_u5757_u5206_u6790" class="headerlink" title="模块分析"></a>模块分析</h2><ul>
+<li>处理HTTP请求——server：使用http包负责创建启动server</li>
+<li>处理不同请求路径——router：负责匹配request中的不同path并分派到不同处理程序</li>
+<li>请求处理程序——handler：不同请求的业务逻辑</li>
+<li>文件系统操作——fs：使用fs包读取文件内容</li>
+<li>文件上传功能——upload：</li>
+<li>入口——index：启动整个应用，组装其他模块</li>
+</ul>
+<h2 id="u4F9D_u8D56_u5206_u6790"><a href="#u4F9D_u8D56_u5206_u6790" class="headerlink" title="依赖分析"></a>依赖分析</h2><ul>
+<li>server使用router分派request</li>
+<li>router进行request中的pathname和handler的映射调用</li>
+<li>handler从request读取用户输入，将处理结果写入response</li>
+<li>index进行依赖注入，将handler传递给router，将router传递给server</li>
+</ul>
+<h2 id="u8BE6_u7EC6_u8BBE_u8BA1"><a href="#u8BE6_u7EC6_u8BBE_u8BA1" class="headerlink" title="详细设计"></a>详细设计</h2><p><strong>server</strong></p>
+<ul>
+<li>start(router):创建服务器，监听端口</li>
+</ul>
+<p><strong>router</strong></p>
+<ul>
+<li>config(handler):配置处理历程</li>
+<li>router(request,response):</li>
+</ul>
+<p><strong>handler</strong></p>
+<ul>
+<li>start(request,response):展示欢迎页面</li>
+<li>upload(request,respoinse):接受上传的文件，展示上传内容</li>
+</ul>
 
       
     </div>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/public/tags/Node/" rel="tag">#Node</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/public/2015/12/18/BlogLog/" rel="next" title="博客建设日志">
+                <i class="fa fa-chevron-left"></i> 博客建设日志
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/public/2015/12/18/BlogLog/" rel="prev" title="博客建设日志">
-                博客建设日志 <i class="fa fa-chevron-right"></i>
+              <a href="/public/2016/01/07/CloundFoundry-Notes/" rel="prev" title="CloundFoundry使用笔记">
+                CloundFoundry使用笔记 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -356,8 +436,8 @@ Quick">
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/18/hello-world/"
-           data-title="Hello World" data-url="http://vFix.github.io/2015/12/18/hello-world/">
+      <div class="ds-thread" data-thread-key="2015/12/25/Node-App设计-01/"
+           data-title="Node-App设计" data-url="http://vFix.github.io/2015/12/25/Node-App设计-01/">
       </div>
     
   </div>
@@ -492,7 +572,7 @@ Quick">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick_Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create_a_new_post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run_server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate_static_files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy_to_remote_sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#u7528_u4F8B"><span class="nav-number">1.</span> <span class="nav-text">用例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u6A21_u5757_u5206_u6790"><span class="nav-number">2.</span> <span class="nav-text">模块分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u4F9D_u8D56_u5206_u6790"><span class="nav-number">3.</span> <span class="nav-text">依赖分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#u8BE6_u7EC6_u8BBE_u8BA1"><span class="nav-number">4.</span> <span class="nav-text">详细设计</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">

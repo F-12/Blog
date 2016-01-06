@@ -4,16 +4,199 @@
   xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title><![CDATA[十二]]></title>
-    <link>http://vfiv.github.io/</link>
+    <link>http://vFix.github.io/</link>
     <atom:link href="/public/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[一点一点做，一步一步来]]></description>
-    <pubDate>Fri, 18 Dec 2015 17:21:59 GMT</pubDate>
+    <pubDate>Wed, 06 Jan 2016 16:54:05 GMT</pubDate>
     <generator>http://hexo.io/</generator>
     
     <item>
+      <title><![CDATA[CloundFoundry使用笔记]]></title>
+      <link>http://vFix.github.io/2016/01/07/CloundFoundry-Notes/</link>
+      <guid>http://vFix.github.io/2016/01/07/CloundFoundry-Notes/</guid>
+      <pubDate>Thu, 07 Jan 2016 00:54:05 GMT</pubDate>
+      <description>
+      <![CDATA[<h1 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a>CLI</h1><h1 id="Application"><a href="#Application" class="headerlink" title=]]>
+      </description>
+      <content:encoded><![CDATA[<h1 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a>CLI</h1><h1 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h1><p>Designing and Running an Application in the Cloud</p>
+<h3 id="Design"><a href="#Design" class="headerlink" title="Design"></a>Design</h3><ul>
+<li>12-factors Application</li>
+<li>.cfingore</li>
+<li>多实例增加可用性</li>
+<li>Buildpacks：提供framework and runtime support</li>
+</ul>
+<h3 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h3><ul>
+<li><p>部署流程</p>
+<p><strong>应用无关的部署过程</strong>  </p>
+<ul>
+<li>上传并保存应用文件</li>
+<li>检查并保存应用metadata</li>
+<li>创建应用的Droplet（执行单位）</li>
+<li>选择DEA运行Droplet</li>
+<li>应用启动可用</li>
+</ul>
+<p><strong>应用相关</strong>  </p>
+</li>
+<li>部署准备：cloud-ready，resources，service instances，buildpack</li>
+<li>Credentials and Target<ul>
+<li>API endpoint（</li>
+<li>username and password</li>
+<li>workspace -&gt; organization -&gt; space</li>
+</ul>
+</li>
+<li>域名配置</li>
+<li>部署选项：设置选项值，配置环境变量</li>
+</ul>
+<h1 id="Services"><a href="#Services" class="headerlink" title="Services"></a>Services</h1><h2 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h2><ul>
+<li><strong>Services</strong>  <ul>
+<li>cf集成</li>
+<li>交付及操作资源的系统</li>
+<li>实现了service broker API</li>
+<li>cloud controller是其客户端</li>
+</ul>
+</li>
+<li><strong>Service Broker</strong>  <ul>
+<li>service中实现service broker API的组件</li>
+</ul>
+</li>
+<li><strong>Service Instances</strong>  <ul>
+<li>cf集成的</li>
+<li>被交付及操作的资源</li>
+</ul>
+</li>
+<li><strong>UPSI</strong>  <ul>
+<li>User-Provided Service Instances</li>
+<li>不被cf管理的资源，比如其他地方部署的可通过url访问的一个数据库实例</li>
+</ul>
+</li>
+</ul>
+<h2 id="Services_vs_Service_Instances"><a href="#Services_vs_Service_Instances" class="headerlink" title="Services vs Service Instances"></a>Services vs Service Instances</h2><ul>
+<li>管理服务实例<ul>
+<li>显示服务列表：cf marketplace</li>
+<li>创建服务实例：<code>cf create-service SERVICE PLAN SERVICE_INSTANCE</code></li>
+<li>显示服务实例列表 &amp; 显示服务实例信息</li>
+<li>rename服务实例</li>
+<li>Delete服务实例</li>
+</ul>
+</li>
+<li>管理Service key：增删改查<br>Service key：手动维护的service实例凭证</li>
+</ul>
+<h2 id="Service_Instance_Credentials"><a href="#Service_Instance_Credentials" class="headerlink" title="Service Instance Credentials"></a>Service Instance Credentials</h2><ul>
+<li>自动提供访问service instance的凭证</li>
+<li>Application Binding</li>
+<li>Service Keys</li>
+</ul>
+<h1 id="u81EA_u5B9A_u4E49Services"><a href="#u81EA_u5B9A_u4E49Services" class="headerlink" title="自定义Services"></a>自定义Services</h1><h2 id="Service_Broker"><a href="#Service_Broker" class="headerlink" title="Service Broker"></a>Service Broker</h2><h3 id="u67B6_u6784_u56FE"><a href="#u67B6_u6784_u56FE" class="headerlink" title="架构图"></a>架构图 <img src="http://docs.cloudfoundry.org/services/images/managed-services.png" alt="架构图"></h3><h3 id="Service_Broker_API"><a href="#Service_Broker_API" class="headerlink" title="Service Broker API"></a><a href="http://docs.cloudfoundry.org/services/api.html">Service Broker API</a></h3><ul>
+<li>catalog</li>
+<li>bind</li>
+<li>unbind</li>
+<li>deprovision (delete)</li>
+</ul>
+<h3 id="u7BA1_u7406Service_Broker"><a href="#u7BA1_u7406Service_Broker" class="headerlink" title="管理Service Broker"></a>管理Service Broker</h3><p><strong>注册</strong>  </p>
+<ul>
+<li>部署实现了Service Broker API的应用</li>
+<li>执行注册命令<code>cf create-service-broker mybrokername someuser somethingsecure http://mybroker.example.com/</code></li>
+<li>权限</li>
+</ul>
+<p><strong>Make Plans Public</strong>  </p>
+<ul>
+<li>默认注册后为私有的<br>-</li>
+</ul>
+<h2 id="Catalog_Metadata"><a href="#Catalog_Metadata" class="headerlink" title="Catalog Metadata"></a>Catalog Metadata</h2><ul>
+<li>Services Marketplace聚集各个Service</li>
+<li>Broker的catalog数据，展示给end users</li>
+<li>End users通过cloud controller clients获取catalog数据  </li>
+<li>不同clients可以使用不同的catalog数据,通过检测metadata字段</li>
+</ul>
+<h2 id="Binding"><a href="#Binding" class="headerlink" title="Binding"></a>Binding</h2><ul>
+<li>服务实例为bindable</li>
+<li>binding后分配的凭证写在VCAP_SERVICES环境变量中</li>
+</ul>
+<h2 id="Dashboard_Single_Sign-On"><a href="#Dashboard_Single_Sign-On" class="headerlink" title="Dashboard Single Sign-On"></a>Dashboard Single Sign-On</h2><p>TBD</p>
+<h1 id="Buildpacks"><a href="#Buildpacks" class="headerlink" title="Buildpacks"></a>Buildpacks</h1><h2 id="u6982_u5FF5"><a href="#u6982_u5FF5" class="headerlink" title="概念"></a>概念</h2><p>为应用提供framework and runtime support</p>
+<ul>
+<li>确定需要下载的依赖</li>
+<li>确定和服务通信的应用配置</li>
+<li><a href="https://github.com/cloudfoundry/buildpack-packager">Buildpack Packager</a></li>
+<li><a href="http://docs.cloudfoundry.org/buildpacks/">System Buildpacks</a></li>
+</ul>
+<h2 id="Detection"><a href="#Detection" class="headerlink" title="Detection"></a>Detection</h2><ul>
+<li>detection priority list</li>
+<li>优先级一次检测，检测成功则启动，检测失败报错<code>Unable to detect a supported application type</code></li>
+</ul>
+<h2 id="u81EA_u5B9A_u4E49"><a href="#u81EA_u5B9A_u4E49" class="headerlink" title="自定义"></a>自定义</h2><p><strong>structure</strong><br>主要由三个脚本构成<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> bin</span><br><span class="line"></span>-<span class="ruby">--- detect</span><br><span class="line"></span>-<span class="ruby">--- compile</span><br><span class="line"></span>-<span class="ruby">--- release</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>bin/detect:以app的build目录为参数调用，返回0(匹配)或1(不匹配)</li>
+<li>bin/compile:构建Droplet，以build目录和cache目录为参数</li>
+<li>bin/release: 以build位置为参数，必须生成yaml文件</li>
+</ul>
+<p><strong>打包</strong>  </p>
+<ul>
+<li>使用buildpacks manager在线使用buildpack</li>
+<li>上传buildpack，离线使用</li>
+</ul>
+<p><strong>使用自定义buildpack部署应用</strong><br>push时指定-b参数</p>
+]]></content:encoded>
+      <comments>http://vFix.github.io/2016/01/07/CloundFoundry-Notes/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[Node-App设计]]></title>
+      <link>http://vFix.github.io/2015/12/25/Node-App%E8%AE%BE%E8%AE%A1-01/</link>
+      <guid>http://vFix.github.io/2015/12/25/Node-App%E8%AE%BE%E8%AE%A1-01/</guid>
+      <pubDate>Fri, 25 Dec 2015 14:47:16 GMT</pubDate>
+      <description>
+      <![CDATA[<p>本文是阅读<em>The Node Beginner Book</em>后的总结</p>
+<h2 id="u7528_u4F8B"><a href="#u7528_u4F8B" class="headerlink" title="用例"></a>用例</h2><p><str]]>
+      </description>
+      <content:encoded><![CDATA[<p>本文是阅读<em>The Node Beginner Book</em>后的总结</p>
+<h2 id="u7528_u4F8B"><a href="#u7528_u4F8B" class="headerlink" title="用例"></a>用例</h2><p><strong>功能描述</strong></p>
+<ul>
+<li><a href="http://domain/start展示欢迎页，提供一个文件上传按钮">http://domain/start展示欢迎页，提供一个文件上传按钮</a></li>
+<li><a href="http://domain/upload展示提交后的文件内容">http://domain/upload展示提交后的文件内容</a></li>
+</ul>
+<p><strong>设计考虑</strong></p>
+<ul>
+<li>功能模块化</li>
+<li>非阻塞</li>
+<li>依赖注入</li>
+</ul>
+<h2 id="u6A21_u5757_u5206_u6790"><a href="#u6A21_u5757_u5206_u6790" class="headerlink" title="模块分析"></a>模块分析</h2><ul>
+<li>处理HTTP请求——server：使用http包负责创建启动server</li>
+<li>处理不同请求路径——router：负责匹配request中的不同path并分派到不同处理程序</li>
+<li>请求处理程序——handler：不同请求的业务逻辑</li>
+<li>文件系统操作——fs：使用fs包读取文件内容</li>
+<li>文件上传功能——upload：</li>
+<li>入口——index：启动整个应用，组装其他模块</li>
+</ul>
+<h2 id="u4F9D_u8D56_u5206_u6790"><a href="#u4F9D_u8D56_u5206_u6790" class="headerlink" title="依赖分析"></a>依赖分析</h2><ul>
+<li>server使用router分派request</li>
+<li>router进行request中的pathname和handler的映射调用</li>
+<li>handler从request读取用户输入，将处理结果写入response</li>
+<li>index进行依赖注入，将handler传递给router，将router传递给server</li>
+</ul>
+<h2 id="u8BE6_u7EC6_u8BBE_u8BA1"><a href="#u8BE6_u7EC6_u8BBE_u8BA1" class="headerlink" title="详细设计"></a>详细设计</h2><p><strong>server</strong></p>
+<ul>
+<li>start(router):创建服务器，监听端口</li>
+</ul>
+<p><strong>router</strong></p>
+<ul>
+<li>config(handler):配置处理历程</li>
+<li>router(request,response):</li>
+</ul>
+<p><strong>handler</strong></p>
+<ul>
+<li>start(request,response):展示欢迎页面</li>
+<li>upload(request,respoinse):接受上传的文件，展示上传内容</li>
+</ul>
+]]></content:encoded>
+      <comments>http://vFix.github.io/2015/12/25/Node-App%E8%AE%BE%E8%AE%A1-01/#disqus_thread</comments>
+    </item>
+    
+    <item>
       <title><![CDATA[博客建设日志]]></title>
-      <link>http://vfiv.github.io/2015/12/18/BlogLog/</link>
-      <guid>http://vfiv.github.io/2015/12/18/BlogLog/</guid>
+      <link>http://vFix.github.io/2015/12/18/BlogLog/</link>
+      <guid>http://vFix.github.io/2015/12/18/BlogLog/</guid>
       <pubDate>Fri, 18 Dec 2015 13:39:32 GMT</pubDate>
       <description>
       <![CDATA[<ul>
@@ -25,26 +208,13 @@
 <li>2015-12-18: 配置NexT主题（感谢作者iissnan）</li>
 </ul>
 ]]></content:encoded>
-      <comments>http://vfiv.github.io/2015/12/18/BlogLog/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[FirstPost]]></title>
-      <link>http://vfiv.github.io/2015/12/18/FirstPost/</link>
-      <guid>http://vfiv.github.io/2015/12/18/FirstPost/</guid>
-      <pubDate>Fri, 18 Dec 2015 00:32:47 GMT</pubDate>
-      <description>
-      <![CDATA[<h1 id="Section1"><a href="#Section1" class="headerlink" title="Section1"></a>Section1</h1><p>this is a section demo<br>this is a section de]]>
-      </description>
-      <content:encoded><![CDATA[<h1 id="Section1"><a href="#Section1" class="headerlink" title="Section1"></a>Section1</h1><p>this is a section demo<br>this is a section demo<br>this is a section demo<br>this is a section demo<br>this is a section demo</p>
-<h1 id="Section2"><a href="#Section2" class="headerlink" title="Section2"></a>Section2</h1>]]></content:encoded>
-      <comments>http://vfiv.github.io/2015/12/18/FirstPost/#disqus_thread</comments>
+      <comments>http://vFix.github.io/2015/12/18/BlogLog/#disqus_thread</comments>
     </item>
     
     <item>
       <title><![CDATA[Hello World]]></title>
-      <link>http://vfiv.github.io/2015/12/18/hello-world/</link>
-      <guid>http://vfiv.github.io/2015/12/18/hello-world/</guid>
+      <link>http://vFix.github.io/2015/12/18/hello-world/</link>
+      <guid>http://vFix.github.io/2015/12/18/hello-world/</guid>
       <pubDate>Thu, 17 Dec 2015 16:25:16 GMT</pubDate>
       <description>
       <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for m]]>
@@ -59,7 +229,7 @@
 <h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="http://hexo.io/docs/deployment.html">Deployment</a></p>
 ]]></content:encoded>
-      <comments>http://vfiv.github.io/2015/12/18/hello-world/#disqus_thread</comments>
+      <comments>http://vFix.github.io/2015/12/18/hello-world/#disqus_thread</comments>
     </item>
     
   </channel>
