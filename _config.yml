@@ -95,6 +95,6 @@ feed:
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repo: git@github.com:vFiv/vFiv.github.io.git
+# deploy:
+#   type: git
+#   repo: git@github.com:vFiv/vFiv.github.io.git
