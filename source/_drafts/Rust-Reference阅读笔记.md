@@ -144,12 +144,78 @@ first-class value及相应的function type
 - struct-like enum变量
 - enum的判别式，默认从0开始，可以直接赋值，枚举变量被赋值则判别式失效
 
-### Constant
+### Constants
 - 命名常量
 - 不占用内存空间
 - 使用时inlined
 - 同一常量的引用不一定是同一个内存地址
 - 必须显式类型标注
 
-### Static
-- 
+### Statics
+- 代表一个内存地址
+- never "inlined"
+- 所有引用指向同一个地址
+- static lifetime
+- 没有interior mutability时被存放在read-only内存区
+- **UnsafeCell**来给static赋予interior mutability，使得此类static读取是安全的
+
+**statics的限制**  
++ 没有destructors
++ ascribe to `Sync`
++ 只能通过应用包含其他static，不能通过值
++ constants不能引用statics
+
+**Contants vs Statics**  
+`Constants over statics`  
+  例外：
+  - 大块数据
+  - 需要单个内存地址
+  - mutability
+
+**Mutable statics**  
+`static mut `  
+问题：会因为并发引起data race，导致潜在的bug   
+解决方案：读写mutable statics时必须使用unsafe block
+
+### Traits
+**概念**  
+- 接口抽象
+- 关联的items：functions，constants，types
+- 方法调用语法
+- supertraits：Self类型参数的trait bounds，影响vtable中可见的方法列表
+- 默认实现
+- 静态方法：没有self参数
+- trait inherit
+**Self**  
+- 所有traits隐式定义的一个type parameter
+- 代实现这个trait的item的type
+- 可以增加trait bounds，但是必须无环
+
+**traits bounds**  
+- 限定参数类型
+- 实现中可以调用对应trait上的方法
+
+**trait object**
+- 每个trait都同时定义一个同名trait object
+- 特定类型的pointer转换为trait类型时生成一个trait object
+- 隐性转换：参数传递
+- 显性转换：as语法
+
+### Implementations
+- 一般形式：impl <Trait> for <Struct>
+- 省略trait的形式：impl <Struct>
+
+### External blocks
+- FFI基础
+- 编译器自动在Rust ABI和其他语言的ABI间转换
+- 声明方式：`extern "stdcall" { }`，默认为`cdecl`，可以通过`ABI string`指定
+
+## Visibility and Privacy
+**name resolution（名称解析）**  
+- global hierarchy of namespaces
+- `items`声明或定义本质上是向这个全局命名空间中插入一棵子树
+- 默认私有，例外：pub enum成员也是pub
+
+**访问控制**  
+- public items 可以被通过public ancestors使用
+- private item 只能被当前module和后代items使用

@@ -10,13 +10,12 @@ date: 2016-01-07 00:54:05
 Designing and Running an Application in the Cloud
 ### Design
 - 12-factors Application
-- .cfingore
+- `.cfingore`
 - 多实例增加可用性
 - Buildpacks：提供framework and runtime support
 
 ### Deploy
-- 部署流程
-
+- 部署流程  
   **应用无关的部署过程**  
   - 上传并保存应用文件
   - 检查并保存应用metadata
