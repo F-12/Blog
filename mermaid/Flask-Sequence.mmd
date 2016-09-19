@@ -1,0 +1,81 @@
+sequenceDiagram
+  participant app
+  participant Flask
+  participant werkzeug.serving
+
+
+  app->>Flask: __init__()
+  Flask-->>app: 初始化对象完成
+  Note left of Flask: import_name,<br/>static_path,<br/>instance_path,<br/>config对象,<br/>logger,<br/>view_functions,<br/>_error_handlers,<br/>before_request_funcs,<br/>before_first_request_funcs,<br/>after_request_funcs,<br/>teardown_request_funcs,<br/>teardown_appcontext_funcs,<br/>url_value_preprocessors,<br/>template_context_processors,<br/>blueprints,<br/>url_map
+
+  app->>Flask: run(host,port,**options)
+
+  Flask->> werkzeug.serving: run_simple(host,port,Flask_APP,request_handler,...)
+
+  werkzeug.serving->>werkzeug.serving: make_server(hostname, port, Flask_APP,request_handler)
+  Note left of werkzeug.serving: 创建server,<br/>注册RequestHandler,默认为WSGIRequestHandler
+
+  werkzeug.serving->>BaseWSGIServer: __init__()
+
+  BaseWSGIServer->>HTTPServer: __init__()
+  Note right of BaseWSGIServer: BaseWSGIServer集成自HTTPServer
+
+  HTTPServer->>TCPServer: __init__()
+  Note left of TCPServer: 创建socket, bind, activate
+  Note right of HTTPServer: HTTPServer继承TCPServer
+
+  TCPServer->>BaseServer: __init__()
+
+  BaseServer-->>TCPServer: 记录server_address,<br/>注册RequestHandlerClass
+
+  TCPServer->>socket: socket()
+  Note left of socket: 打开了一个socket file descriptor
+
+  socket-->>TCPServer: socket对象
+
+  TCPServer-->>HTTPServer: 持有socket对象的TCPServer对象
+
+  HTTPServer-->BaseWSGIServer: 持有TCPServer对象的HTTPServer对象
+
+  BaseWSGIServer-->>werkzeug.serving: 初始化就绪的WSGIServer
+
+  werkzeug.serving->>BaseWSGIServer: server_forever()
+  Note right of werkzeug.serving: 启动server
+
+  BaseWSGIServer->>HTTPServer: server_forever()
+
+  loop HTTPServer Waiting For HTTP Connection
+
+    HTTPServer->>select: select()
+
+    select-->>HTTPServer: 打开的file descriptors-READABLE_LIST
+    Note right of HTTPServer: 检查自己持有的socket是否可读
+
+    HTTPServer->>HTTPServer: _handle_request_noblock()
+
+    HTTPServer->>TCPServer: get_request()
+
+    TCPServer->>socket: accept()
+
+    socket-->>HTTPServer: 获得socket connection,以及客户端address
+
+    alt socket is verified_request
+
+      HTTPServer->>BaseServer: process_request(connection,address)
+      BaseServer->>BaseServer: finish_request(connection,address)
+      BaseServer->>RequestHandlerClass: __init__()
+      RequestHandlerClass->>RequestHandlerClass: setUp()
+      RequestHandlerClass->>RequestHandlerClass: handle()
+      RequestHandlerClass->>RequestHandlerClass: finish()
+      RequestHandlerClass-->>HTTPServer: 一个请求处理结束
+
+    else socket is not verified_request
+
+      TCPServer->TCPServer: handle_error(connection,address)
+
+    end
+
+    TCPServer->>socket: close()
+
+    socket-->>HTTPServer: HTTP Connect断开
+  end

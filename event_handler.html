@@ -1,0 +1,26 @@
+<html>
+
+<head>
+</head>
+
+<body>
+  <button id='test'>Start Demo</button>
+  <script>
+    var button = document.getElementById('test');
+    button.addEventListener('click', function() {
+      alert('ONE')
+    }, false);
+    button.setAttribute('onclick', "alert('NOT CALLED')"); // event handler listener is registered here
+    button.addEventListener('click', function() {
+      alert('THREE')
+    }, false);
+    button.onclick = function() {
+      alert('TWO');
+    };
+    button.addEventListener('click', function() {
+      alert('FOUR')
+    }, false);
+  </script>
+</body>
+
+</html>

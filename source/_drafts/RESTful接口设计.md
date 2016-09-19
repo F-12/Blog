@@ -117,12 +117,18 @@ Document(id:uuid,content:text,merchant_id:uuid)
 ### 工具选择
 - python
 - Flask
+- Flask-Restful
 - SQLAlchemy
 - mashmallow库
 
-### 资源定义与数据库映射
-**ORM方案: SQLAlchemy**  
 
+### 资源定义
+- class-based Resource定义
+- GET:
+I: <path:id> O: <body:资源序列化串>  
+- PUT: I: <path:id> <body:资源序列化串>
+- DELETE: I:<path:id> O: 204
+- PATCH:
 ### URI定义
 **Werkzeug路由系统**  
 **Flask Web框架**  

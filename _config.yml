@@ -4,9 +4,9 @@
 
 # Site
 title: 十二
-subtitle: 寡人后宫
-description: 一点一点做，一步一步来
-author: vFix
+subtitle: 一点一点做，一步一步来
+description: 没啥特长，会写点代码，我自嘲码农，可你叫我码农我就和你急，请唤我为F-12
+author: F-12
 avatar: http://7xpb2a.com1.z0.glb.clouddn.com/blog/setting/avatar.jpg
 language: zh-Hans
 timezone: UTC
@@ -14,7 +14,7 @@ timezone: UTC
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://vFix.github.io/
-root: /public
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 duoshuo_shortname: vfiv
@@ -31,7 +31,7 @@ skip_render:
 
 # Writing
 new_post_name: :year-:month-:day-:title.md # File name of new posts
-default_layout: post
+default_layout: draft
 titlecase: false # Transform title into titlecase
 external_link: false # Open external links in new tab
 filename_case: 0
@@ -69,7 +69,7 @@ theme: next
 
 # socials
 social:
-  Github: https://github.com/vFiv
+  Github: https://github.com/F-12
   StackOverflow: http://stackoverflow.com/users/4763286/axis?tab=profile
   知乎: https://www.zhihu.com/people/vFiv
   Lofter: http://axiswhistle.lofter.com
@@ -95,6 +95,6 @@ feed:
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
-# deploy:
-#   type: git
-#   repo: git@github.com:vFiv/vFiv.github.io.git
+deploy:
+  type: git
+  repo: git@github.com:F-12/f-12.github.io.git

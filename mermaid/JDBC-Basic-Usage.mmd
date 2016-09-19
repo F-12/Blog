@@ -1,0 +1,20 @@
+sequenceDiagram
+
+  participant App
+  participant Class
+  participant Driver
+
+  App->>Class: Class.forName("com.mysql.jdbc.Driver")
+  note right of App: 加载数据库vendor的Driver实现类
+
+  Class->>Driver: 加载class对象,执行静态初始化
+
+  Driver->>DriverManager: DriverManager.register(new Driver())
+  note left of DriverManager: DriverManager维护一个注册的Driver列表
+
+  DriverManager-->Driver: 注册成功
+
+  Driver-->>Class: 初始化完成
+
+  Class-->>App: 加载成功
+  

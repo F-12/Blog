@@ -5,10 +5,158 @@
   <channel>
     <title><![CDATA[十二]]></title>
     <link>http://vFix.github.io/</link>
-    <atom:link href="/public/rss.xml" rel="self" type="application/rss+xml"/>
-    <description><![CDATA[一点一点做，一步一步来]]></description>
-    <pubDate>Wed, 06 Jan 2016 17:21:37 GMT</pubDate>
+    <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
+    <description><![CDATA[没啥特长，会写点代码，我自嘲码农，可你叫我码农我就和你急，请唤我为F-12]]></description>
+    <pubDate>Thu, 17 Dec 2015 16:25:16 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[Hello World]]></title>
+      <link>http://vFix.github.io/2016/07/07/hello-world/</link>
+      <guid>http://vFix.github.io/2016/07/07/hello-world/</guid>
+      <pubDate>Thu, 07 Jul 2016 09:21:36 GMT</pubDate>
+      <description>
+      <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for m]]>
+      </description>
+      <content:encoded><![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html">Deployment</a></p>
+]]></content:encoded>
+      <comments>http://vFix.github.io/2016/07/07/hello-world/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title><![CDATA[Python-Reference阅读笔记]]></title>
+      <link>http://vFix.github.io/2016/02/26/Python-Reference%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</link>
+      <guid>http://vFix.github.io/2016/02/26/Python-Reference%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</guid>
+      <pubDate>Fri, 26 Feb 2016 14:27:17 GMT</pubDate>
+      <description>
+      <![CDATA[<h1 id="u6570_u636E_u6A21_u578B"><a href="#u6570_u636E_u6A21_u578B" class="headerlink" title="数据模型"></a>数据模型</h1><h2 id="u5BF9_u8C61_u3001_u]]>
+      </description>
+      <content:encoded><![CDATA[<h1 id="u6570_u636E_u6A21_u578B"><a href="#u6570_u636E_u6A21_u578B" class="headerlink" title="数据模型"></a>数据模型</h1><h2 id="u5BF9_u8C61_u3001_u503C_u548C_u7C7B_u578B"><a href="#u5BF9_u8C61_u3001_u503C_u548C_u7C7B_u578B" class="headerlink" title="对象、值和类型"></a>对象、值和类型</h2><ul>
+<li><code>id()</code>函数与对象ID</li>
+<li><code>type()</code>函数与对象类型</li>
+<li>对象创建后天生具有ID，type</li>
+<li>值可变为可变对象，值不可变为不可变对象，由type决定</li>
+</ul>
+<h2 id="u6807_u51C6_u7C7B_u578B_u7684_u5C42_u6B21_u7ED3_u6784"><a href="#u6807_u51C6_u7C7B_u578B_u7684_u5C42_u6B21_u7ED3_u6784" class="headerlink" title="标准类型的层次结构"></a>标准类型的层次结构</h2><ul>
+<li><code>None</code></li>
+<li><code>NotImplemented</code></li>
+<li><code>Ellipsis</code></li>
+<li>Numbers有numbers模块定义类<ul>
+<li>numbers.Number</li>
+<li>numbers.Complex</li>
+<li>numbers.Real</li>
+<li>numbers.Rational</li>
+<li>numbers.Integral</li>
+</ul>
+</li>
+<li>Sequence<br><strong>可变</strong>  <ul>
+<li>Strings：<code>chr()</code>,<code>ord()</code>函数在字符和字节序数间转换</li>
+<li>Unicode: <code>unichr()</code>, <code>ord()</code>在Unicode和序数间转换</li>
+<li>Tuple:<br><strong>不可变</strong>  </li>
+<li>Lists:</li>
+<li>Bytearray: <code>bytearray()</code>创建</li>
+</ul>
+</li>
+<li>Sets<ul>
+<li>set: <code>set()</code>创建，可变容器</li>
+<li>frozenset: <code>frozenset()</code>创建，不可变容器</li>
+</ul>
+</li>
+<li>Maps<ul>
+<li>dict: <code>{}</code>创建，键是不可变对象</li>
+</ul>
+</li>
+<li>Callable</li>
+<li>User-defined functions<br><strong>函数属性</strong>  <ul>
+<li><code>__doc__</code></li>
+<li><code>__name__</code></li>
+<li><code>__module__</code></li>
+<li><code>__defaults__</code></li>
+<li><code>__code__</code></li>
+<li><code>__globals__</code></li>
+<li><code>__dict__</code></li>
+<li><code>__closure__</code></li>
+</ul>
+</li>
+<li>User-defined methods<br><strong>将class，instance和Callable对象结合起来</strong>  <ul>
+<li>绑定的User-defined method: 通过类获取，im_self指向None</li>
+<li>未绑定的User-defined method: 通过实例获取，im_self指向实例</li>
+<li>im_class指向类对象，im_func指向原始函数对象</li>
+<li><strong>doc</strong></li>
+<li><strong>name</strong></li>
+</ul>
+</li>
+<li>静态方法对象</li>
+<li>类方法对象</li>
+<li>Generator</li>
+<li>Built-in functions<ul>
+<li>封装C函数</li>
+<li>特殊属性</li>
+</ul>
+</li>
+<li>Built-in methods<ul>
+<li>C函数的另一种封装，包含传递给C函数实例作为隐式参数</li>
+</ul>
+</li>
+<li>Module<ul>
+<li><code>import</code>语句导入的对象</li>
+<li>包含一个字典实现的命名空间，属性的引用被转换成查询这个字典</li>
+<li><code>__name__</code>为模块的名字</li>
+<li><code>__doc__</code>指模块的文档字符串，如果没有则为None</li>
+<li><code>__file__</code>为模块加载的文件路径</li>
+</ul>
+</li>
+<li>Classes<br><strong>Class type</strong>:新式类，可调用，通常作为工厂创建它们自己的实例,调用参数传递给<code>__new__()</code>，然后在调用<code>__init__()</code><br><strong>Classic Classes</strong>:类调用时，参数传递给<code>__init__()</code>方法<ul>
+<li>用字典对象实现的命名空间,类属性的引用被转换为这个字典的查询</li>
+<li>类属性的赋值将更新该类的字典，永远不会更新其基类的字典。</li>
+</ul>
+</li>
+<li>Class instances<ul>
+<li>具有<code>__call__()</code>方法时实例可以调用</li>
+<li>实例属性字典-&gt;类属性字典-&gt;<code>__getattr__()</code>方法</li>
+<li>属性的赋值和删除会更新实例字典，永远不会是类的字典。如果类有一个<strong>setattr</strong>() 或者<strong>delattr</strong>() 方法，那么会调用这个方法而不是直接更新实例的字典。</li>
+</ul>
+</li>
+<li>File</li>
+<li>内部类型</li>
+<li>Code objects</li>
+<li>Frame objects<br><strong>执行帧</strong></li>
+<li>Traceback objects</li>
+<li>Slice objects<h2 id="u65B0_u5F0F_u7C7B_u548C_u7ECF_u5178_u7C7B"><a href="#u65B0_u5F0F_u7C7B_u548C_u7ECF_u5178_u7C7B" class="headerlink" title="新式类和经典类"></a>新式类和经典类</h2><h2 id="u7279_u6B8A_u65B9_u6CD5_u7684_u540D_u5B57"><a href="#u7279_u6B8A_u65B9_u6CD5_u7684_u540D_u5B57" class="headerlink" title="特殊方法的名字"></a>特殊方法的名字</h2></li>
+<li><strong>运算符重载</strong><ul>
+<li><code>__getitem__()</code>下标</li>
+<li><code>object.__new__(cls[, ...])</code>构造</li>
+<li><code>object.__init__(self[, ...])</code>初始化，子类需要显式调用基类的<strong>init</strong></li>
+<li><code>object.__del__(self)</code>del操作符</li>
+<li><code>object.__repr__(self)</code>对象正式字符串表示<code>repr()</code>函数调用</li>
+<li><code>object.__str__(self)</code>对象非正式字符串表示<code>str()</code>函数调用<br><strong>比较操作符</strong>  </li>
+<li><code>object.__lt__(self, other)</code></li>
+<li><code>object.__le__(self, other)</code></li>
+<li><code>object.__eq__(self, other)</code></li>
+<li><code>object.__ne__(self, other)</code></li>
+<li><code>object.__gt__(self, other)</code></li>
+<li><code>object.__ge__(self, other)</code></li>
+<li><code>object.__hash__(self)</code></li>
+<li><code>object.__nonzero__(self)</code></li>
+<li><code>object.__unicode__(self)</code><h2 id="u81EA_u5B9A_u4E49_u5C5E_u6027_u8BBF_u95EE"><a href="#u81EA_u5B9A_u4E49_u5C5E_u6027_u8BBF_u95EE" class="headerlink" title="自定义属性访问"></a>自定义属性访问</h2></li>
+<li><code>__getattr__()</code></li>
+<li><code>__getattribute__()</code></li>
+<li><code>__setattr__()</code></li>
+<li><code>__delattr__()</code><h1 id="u6267_u884C_u6A21_u578B"><a href="#u6267_u884C_u6A21_u578B" class="headerlink" title="执行模型"></a>执行模型</h1>TBD</li>
+</ul>
+</li>
+</ul>
+]]></content:encoded>
+      <comments>http://vFix.github.io/2016/02/26/Python-Reference%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/#disqus_thread</comments>
+    </item>
     
     <item>
       <title><![CDATA[CloundFoundry使用笔记]]></title>
@@ -21,13 +169,12 @@
       <content:encoded><![CDATA[<h1 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a>CLI</h1><h1 id="Application"><a href="#Application" class="headerlink" title="Application"></a>Application</h1><p>Designing and Running an Application in the Cloud</p>
 <h3 id="Design"><a href="#Design" class="headerlink" title="Design"></a>Design</h3><ul>
 <li>12-factors Application</li>
-<li>.cfingore</li>
+<li><code>.cfingore</code></li>
 <li>多实例增加可用性</li>
 <li>Buildpacks：提供framework and runtime support</li>
 </ul>
 <h3 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy"></a>Deploy</h3><ul>
-<li><p>部署流程</p>
-<p><strong>应用无关的部署过程</strong>  </p>
+<li><p>部署流程<br><strong>应用无关的部署过程</strong>  </p>
 <ul>
 <li>上传并保存应用文件</li>
 <li>检查并保存应用metadata</li>
@@ -213,27 +360,6 @@
 </ul>
 ]]></content:encoded>
       <comments>http://vFix.github.io/2015/12/18/BlogLog/#disqus_thread</comments>
-    </item>
-    
-    <item>
-      <title><![CDATA[Hello World]]></title>
-      <link>http://vFix.github.io/2015/12/18/hello-world/</link>
-      <guid>http://vFix.github.io/2015/12/18/hello-world/</guid>
-      <pubDate>Thu, 17 Dec 2015 16:25:16 GMT</pubDate>
-      <description>
-      <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for m]]>
-      </description>
-      <content:encoded><![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html">Deployment</a></p>
-]]></content:encoded>
-      <comments>http://vFix.github.io/2015/12/18/hello-world/#disqus_thread</comments>
     </item>
     
   </channel>
