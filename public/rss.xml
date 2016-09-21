@@ -7,8 +7,39 @@
     <link>http://vFix.github.io/</link>
     <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
     <description><![CDATA[没啥特长，会写点代码，我自嘲码农，可你叫我码农我就和你急，请唤我为F-12]]></description>
-    <pubDate>Thu, 17 Dec 2015 16:25:16 GMT</pubDate>
+    <pubDate>Mon, 19 Sep 2016 15:51:58 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title><![CDATA[知其所以然-Binding_System_of_Vue]]></title>
+      <link>http://vFix.github.io/2016/09/20/%E7%9F%A5%E5%85%B6%E6%89%80%E4%BB%A5%E7%84%B6-Binding-System-of-Vue/</link>
+      <guid>http://vFix.github.io/2016/09/20/%E7%9F%A5%E5%85%B6%E6%89%80%E4%BB%A5%E7%84%B6-Binding-System-of-Vue/</guid>
+      <pubDate>Mon, 19 Sep 2016 22:42:00 GMT</pubDate>
+      <description>
+      <![CDATA[<h1 id="u76EE_u6807"><a href="#u76EE_u6807" class="headerlink" title="目标"></a>目标</h1><ul>
+<li>[ ] 理解Vue的binding系统工作原理</li>
+<li>[ ] 理解单向绑定和双向]]>
+      </description>
+      <content:encoded><![CDATA[<h1 id="u76EE_u6807"><a href="#u76EE_u6807" class="headerlink" title="目标"></a>目标</h1><ul>
+<li>[ ] 理解Vue的binding系统工作原理</li>
+<li>[ ] 理解单向绑定和双向绑定实现方法</li>
+<li>[ ] 实现一个简单的单向绑定的Demo</li>
+</ul>
+<h1 id="u5F15_u5165"><a href="#u5F15_u5165" class="headerlink" title="引入"></a>引入</h1><h2 id="DOM_u66F4_u65B0"><a href="#DOM_u66F4_u65B0" class="headerlink" title="DOM更新"></a>DOM更新</h2><p>浏览器构建DOM Tree，渲染视图，并提供DOM API更新视图。浏览器保证视图的渲染结果和DOM Tree中的数据同步。开发者经常会从服务器加载数据更新到视图上，或根据用户的交互改变视图。这些改变视图的方式可以抽象成改变视图状态数据（即数据驱动视图）。</p>
+<p>我们一般都会使用data object保存从服务器加载到的数据或记录用户交互的状态数据，然后把这些data object里的数据同步到DOM对象的各个属性值上，触发视图的更新。</p>
+<p>一般的做法是这样的：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">  Hello,<span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"name"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span><br><span class="line">  <span class="keyword">var</span> name = <span class="string">'f-12'</span>;</span><br><span class="line">  $(<span class="string">'#name'</span>).text(name);</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>name代表data object（既可能是从服务器上加载的数据，也可能是用户交互产生的状态数据），当我们把值赋给DOM的属性（使用原生DOM API或jQuery)，修改视图后，data，object就和DOM的属性值没有关系了，假如我们再次更新name，DOM属性值并不会变化，因而视图也不会变化。我们必须再次修改DOM属性才可以更新视图，即每次状态数据发生变动时我们必须手动更新视图。</p>
+<p>手动更新DOM显得很繁琐。前端工程更加复杂，用户交互更加复杂，单页应用更加流行，产生了更多的状态数据，这些因素也凸显了手动更新DOM的缺点。</p>
+<h2 id="Binding"><a href="#Binding" class="headerlink" title="Binding"></a>Binding</h2><p>Binding的思想就是建立data object和DOM对象之前的关系，使得我们修改data object上的属性值时自动完成DOM对象的更新。</p>
+<h1 id="u89C2_u5BDF_u8005_u6A21_u5F0F"><a href="#u89C2_u5BDF_u8005_u6A21_u5F0F" class="headerlink" title="观察者模式"></a>观察者模式</h1><ul>
+<li>原理</li>
+<li>javascript实现的观察者模式Demo</li>
+</ul>
+<h1 id="Vue_u7684binding_u5B50_u7CFB_u7EDF"><a href="#Vue_u7684binding_u5B50_u7CFB_u7EDF" class="headerlink" title="Vue的binding子系统"></a>Vue的binding子系统</h1><img src="/2016/09/20/知其所以然-Binding-System-of-Vue/vue_binding_model.png" alt="vue_binding_model.png" title="">
+]]></content:encoded>
+      <comments>http://vFix.github.io/2016/09/20/%E7%9F%A5%E5%85%B6%E6%89%80%E4%BB%A5%E7%84%B6-Binding-System-of-Vue/#disqus_thread</comments>
+    </item>
     
     <item>
       <title><![CDATA[Hello World]]></title>
