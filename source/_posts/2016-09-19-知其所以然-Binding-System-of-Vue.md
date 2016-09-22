@@ -59,166 +59,167 @@ Web开发中比较频繁出现的场景是：
 ```
 ```javascript
 import Vue from 'vue';
-new Vue({
+const vm = new Vue({
   el: '#app',
   data: {
     message: 'Hello Vue.js!'
   }
 })
 ```
-(来自vuejs.org)
+—— Reference [vuejs.org](http://vuejs.org/guide/)
+
 这个代码段的效果是页面渲染时，message的值会自动同步到DOM中，当修改message时，DOM会同步更新。
-接下来，F-12决定探究一下这一切是怎么发生的。
-## import Vue时发生了什么
+接下来，我们来探究一下这一切是怎么发生的。
+
+## import
 `new Vue()`之前，我们首先得引入Vue的库，我们使用ES6的`import`方式。
 `import Vue from 'vue'`执行时，会首先找到`vue`包，然后执行里面的`index.js`代码，将其中导出的对象绑定到`Vue`这个标识符上。
 在这一步，定义Vue类，导出一个构造函数来实例化（Vue实例化时做了很多事情，我们稍后再深入）。
 
 ## 实例化过程
 ### el选项
+```puml
+@startuml
+User -> Vue: new Vue(options)
+note left of Vue
+此时写在html里的Vue指令原样输出到html
+浏览器解析html时跳过元素属性里的vue指令
+text节点的vue指令按照字符串输出
+end note
 
-### data选项
+Vue -> vm: construct
 
-### `{{message}}`
+Vue -> vm: this._initProps()
+note left of vm
+el选项通过document.querySelector(el)转化为DOM对象
+compileAndLinkProps
+end note
 
-## Obserable
+Vue -> vm: this.$mount(el)
 
-定义Dep类表示Obserable对象
-```javascript
-export default function Dep () {
-  this.id = uid++
-  this.subs = []
-}
-// 增加订阅者
-Dep.prototype.addSub = function(sub) {}
-// 移除订阅者
-Dep.prototype.removeSub = function(sub) {}
-// 通知订阅者更新（调用每个订阅者的update方法）
-Dep.prototype.notify = function() {}
-// 将自己注册到target watcher的依赖中
-Dep.prototype.depend = function() {}
-```
+Vue -> vm: this._compile(el)
 
-## Observer
-定义Observer类，此类接受被观察的对象，实例化时使用Object.defineProperty拦截该对象的getter和setter，完成依赖收集和分派更新的功能。
-```javascript
-/**
- * @param {Array|Object} value
- * @constructor
- */
-export function Observer (value) {
-  this.value = value
-  this.dep = new Dep()
-  def(value, '__ob__', this)
-  if (isArray(value)) {
-    // 一些无关代码
-    this.observeArray(value)
-  } else {
-    this.walk(value)
-  }
-}
+Vue -> vm: this._initElement(el)
+note left of vm
+this.$el.__vue__链接到vm实例
+hook: beforeCompile
+end note
+vm -> Vue: el DOM初始化this.$el
 
-/**
- * 遍历对象key-value，并转化为getter/setter。
- * 需要处理Plain Object及使用了getter和setter的Object。
- * 只接受Object类型参数。
- *
- * @param {Object} obj
- */
-Observer.prototype.walk = function (obj) {}
+Vue -> vm: compileRoot(el, options, null)
+note left of vm
+处理node上声明的directive
+end note
+vm -> Vue: rootLinker
 
-Observer.prototype.observeArray = function (items) {}
+Vue -> vm: rootLinker()
+vm -> Vue: rootUnlinkFn
 
-Observer.prototype.convert = function (key, val) {}
+Vue -> vm: compile(el, options)
 
-```
-定义辅助函数defineReactive。
-此函数的功能：
-- 不处理不可配置的属性
-- 属性值被转化为Observer对象
-- 使用Object.defineProperty重新定义getter/setter
+Vue -> vm: compileNodeList(el.childNodes, options)
 
-getter: 在返回值之前将此key及val里依赖的属性都添加到target watcher中。
-setter：检测变更，新设置的值转化为observer，通知Observable变更。
-```javascript
-export function defineReactive (obj, key, val) {
-  var dep = new Dep()
+loop node in el.childNodes
 
-  var property = Object.getOwnPropertyDescriptor(obj, key)
-  if (property && property.configurable === false) {
-    return
-  }
+  Vue -> vm: compileNode(node, options)
+  note left of vm
+  此时node为text node: {{message}}
+  end note
 
-  // cater for pre-defined getter/setters
-  var getter = property && property.get
-  var setter = property && property.set
+  Vue -> vm: parseText('{{message}}')
+  vm -> Vue: {{ }}和{{{ }}}匹配得到的tokens
+  note left of vm: frag = document.createDocumentFragment()
 
-  var childOb = observe(val)
-  Object.defineProperty(obj, key, {
-    enumerable: true,
-    configurable: true,
-    get: function reactiveGetter () {
-      var value = getter ? getter.call(obj) : val
-      if (Dep.target) {
-        dep.depend()
-        if (childOb) {
-          childOb.dep.depend()
-        }
-        if (isArray(value)) {
-          for (var e, i = 0, l = value.length; i < l; i++) {
-            e = value[i]
-            e && e.__ob__ && e.__ob__.dep.depend()
-          }
-        }
-      }
-      return value
-    },
-    set: function reactiveSetter (newVal) {
-      var value = getter ? getter.call(obj) : val
-      if (newVal === value) {
-        return
-      }
-      if (setter) {
-        setter.call(obj, newVal)
-      } else {
-        val = newVal
-      }
-      childOb = observe(newVal)
-      dep.notify()
+  loop token in tokens
+    alt token is tag
+    Vue -> vm: processTextToken(token, options)
+
+    Vue -> vm: parseDirective(token.value)
+    note left of vm
+    token.value为'message'
+    进行词法分析
+    需要处理的情况：
+    字面量
+    变量
+    过滤器 |
+    括号()
+    索引[]
+    花括号{}
+    end note
+
+    vm -> Vue: 解析出expression
+    note left of vm
+    解析得到对象{
+      experssion: 'message'
     }
-  })
-}
-```
+    设置token.descriptor = {
+          name: 'text',
+          def: directives['text'],
+          expression: 'message',
+          filters: null
+    }
+    end note
 
-定义Observer的工厂函数。
-传入的value分为三种情况：
-- 已经存在observer，不需要创建
-- 不存在observer，需要创建
-- 不需要创建observer
 
-根据是否传入vm决定是否绑定到vm实例上。
-```javascript
-export function observe (value, vm) {
-  if (!value || typeof value !== 'object') {
-    return
-  }
-  var ob
-  if (
-    hasOwn(value, '__ob__') &&
-    value.__ob__ instanceof Observer
-  ) {
-    ob = value.__ob__
-  } else if (
-    shouldConvert &&
-    (isArray(value) || isPlainObject(value)) &&
-    Object.isExtensible(value) &&
-    !value._isVue
-  ) {
-    ob = new Observer(value)
-  }
-  if (ob && vm) {
-    ob.addVm(vm)
-  }
-  return ob
-}
+    end
+  end
+
+  vm -> Vue: textNodeLinkFn
+end
+
+vm -> Vue: childLinkFn
+
+vm -> Vue: compositeLinkFn
+
+Vue -> vm: compositeLinkFn(vm, el)
+Vue -> vm: childLinkFn(vm ,textNode)
+Vue -> vm: textNodeLinkFn(vm, textNode)
+
+Vue -> vm: this._bindDir()
+note left of vm
+this._directives中增加新创建的Directive对象
+end note
+vm -> Vue
+
+Vue -> vm: replace(el, fragClone)
+note left of vm
+使用新创建的空白DocumentFrag副本替换DOM中的el DOM
+此时页面上应该短暂的空白
+end note
+vm -> Directive: _bind()
+Directive -> Watcher: new
+Watcher -> Directive: 设置this._watcher
+
+Directive -> Directive: this.update(watcher.value)
+Directive -> Directive: this.el[this.attr] = _toString(value)
+note left
+此时data.message设置到text node中
+页面DOM属性和data中数据一致
+end note
+
+vm -> Vue: unlinkFn
+
+vm -> Vue:
+note left of vm
+'hello world'同步到页面上
+hook: compiled
+hook: atached
+hook: ready
+end note
+
+Vue --> User: 实例化的Vue对象vm
+
+@enduml
 ```
+### data选项
+  <!-- end
+  end
+  end
+  note left of vm
+  checkTerminalDirectives
+  checkElementDirectives
+  checkComponent
+  compileDirectives
+  存在则返回linkFn
+  不存在返回null -->
+### `{{message}}`
