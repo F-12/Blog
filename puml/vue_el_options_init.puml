@@ -1,0 +1,9 @@
+@startuml
+participant Client as C
+participant "vm:Vue" as V
+participant Node as N
+C -> V: $mount(options.el)
+V -> N: el.parent.replaceChild(target, el)
+N --> V: Document中el被新创建的Node替换
+V --> C: Vue实例vm
+@enduml

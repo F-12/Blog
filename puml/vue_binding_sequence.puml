@@ -1,0 +1,63 @@
+@startuml
+participant Vue as V
+participant compile as C
+participant compositeLinkFn as L
+participant Directive as D
+participant Watcher as W
+participant parseExpression as P
+participant Dep as Dep
+
+group _init
+  V -> Dep: new
+  note left of Dep
+  在_init()过程中obersver data选项时
+  对每个Object类型键值定义discriptor时创建dep对象
+  dep对象被闭包在属性的getter中
+  endnote
+  Dep --> V: dep对象
+end
+
+group compile
+  V -> C: call compile
+  C --> V: compositeLinkFn
+end
+
+group link
+  V -> L: call compositeLinkFn
+  L -> V: call _bindDir
+  V -> D: new Directive()
+  D --> V: directive对象
+  V -> V: call _directives.push
+  L --> V: unlinkFn函数对象
+  note right of V
+  通过调用unlinkFn可以销毁link过程建立起来的binding系统
+  endnote
+end
+
+group bind
+  V -> D: call _bind
+  D -> W: new Watcher()
+  W -> V: call vm._watchers.push
+  V --> W
+  W -> P: call parseExpression
+  P -> W: getter / setter
+  W -> W: call get
+  W -> W: call beforeGet, 设置Dep.target
+  W -> W: call getter
+  W -> W: call addDep
+
+  W -> Dep: call dep.addSub
+  note right of W
+  将自身注册到属性的dep订阅者列表中
+  endnote
+  Dep --> W
+
+  W --> D: watcher对象
+  group 初始化更新
+    D -> D: call update
+    D -> Dep: call notify
+    Dep -> W: call update
+  end
+end
+
+@enduml
