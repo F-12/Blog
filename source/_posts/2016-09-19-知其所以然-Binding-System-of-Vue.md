@@ -17,6 +17,7 @@ tags:
 - [ ] 实现一个简单的单向绑定的Demo
 
 # 引入
+
 ## DOM更新
 
 浏览器构建DOM Tree，渲染视图，并提供DOM API更新视图。浏览器保证视图的渲染结果和DOM Tree中的数据同步。开发者经常会从服务器加载数据更新到视图上，或根据用户的交互改变视图。这些改变视图的方式可以抽象成改变视图状态数据（即数据驱动视图）。
@@ -39,23 +40,42 @@ name代表data object（既可能是从服务器上加载的数据，也可能�
 
 手动更新DOM显得很繁琐。前端工程更加复杂，用户交互更加复杂，单页应用更加流行，产生了更多的状态数据，这些因素也凸显了手动更新DOM的缺点。
 
-## Binding
-Binding的思想就是建立data object和DOM对象之前的关系，使得我们修改data object上的属性值时自动完成DOM对象的更新。
+## Data Binding
+Data Binding的思想就是建立data object和DOM对象之前的关系，使得我们修改data object上的属性值时自动完成DOM对象的更新。要完成这个特性，我们很自然想到了观察者模式（发布/订阅模式）
 
-# 观察者模式
-- 原理
-- javascript实现的观察者模式Demo
+## 观察者模式
+- **定义**
 
-# Vue的binding系统
-## Overview
+> The Observer Pattern defines a one-to-many dependency between objects so that when one object changes state, all of its dependents are notified and updated automatically.
+
++ **原理**
+{% asset_img js_observer_pattern.png %}
+
++ **Pull vs Push**
+javascript有两种observer pattern的实现方式：pull和push。
+
+  - Push： observable状态更新时使用变更的数据作为参数调用observer注册的回调
+  - Pull： observable状态变更时简单通知observer更新，observer使用自身持有的observable引用获取感兴趣的状态。
+
+  ( Vue中使用的Pull方式实现的observer pattern )
+
++ **用到Observer的地方**
+  - jQuery对象的on/trigger方法
+  - Node里EventEmitter的on/emmit方法
+  - DOM里EventTarget的onXXX
+
+# Vue的Data Binding
 {% asset_img vue_binding_model.png %}
-（图片来自vuejs.org)
+> Reference: vuejs.org
+
 
 Web开发中比较频繁出现的场景是：
-- 有很多状态数据需要同步到DOM上（DOM操作，这也是jQuery流行的主要因素）
-- 多个DOM对象用到同一个状态数据，状态发生变动时需要更新所有DOM
+- 有很多状态数据需要同步到DOM上（DOM操作，jQuery流行的主要因素）
+- 多个DOM对象用到同一个状态数据，状态发生变动时需要更新所有DOM(Data Binding，MVVM流行的推动力)
 
-## 最简单的🌰
+本次我们主要关注Vue的Data Binding实现的方式。
+
+继续进行前，我们需要引入一个最简单的🌰。
 ```html
 <div id="app">
   This is a {{ message }}.
@@ -70,7 +90,7 @@ const vm = new Vue({
   }
 })
 ```
-—— Reference [vuejs.org](http://vuejs.org/guide/)
+> Reference: [vuejs.org](http://vuejs.org/guide/)
 
 这个代码段的效果是页面渲染时，message的值会自动同步到DOM中，当修改message时，DOM会同步更新。
 接下来，我们来探究一下这一切是怎么发生的。
@@ -78,7 +98,11 @@ const vm = new Vue({
 ## import
 `new Vue()`之前，我们首先得引入Vue的库，我们使用ES6的`import`方式。
 `import Vue from 'vue'`执行时，会首先找到`vue`包，然后执行里面的`index.js`代码，将其中导出的对象绑定到`Vue`这个标识符上。这一行代码完成Vue类的定义，导出一个构造函数来供使用者实例化。
-Vue实例化时做了很多事情。
+
+`import`过程体现了`Vue`的扩展能力，提现了`Vue`支持自定义`directive`，`filter`，`watch`等特性的方式。但是这个不是我们这次的关注重点，略过不讲。
+有了Vue的构造函数，就可以用它进行实例化了。Vue实例化时做了很多事情，支撑起了Vue的`运行时`。
+
+**debate**  `Vue`是库(`lib`)还是框架(`framework`) ?
 
 ## 实例化过程
 ### `el`选项
@@ -101,6 +125,8 @@ Vue实例化时做了很多事情。
 
 `el`选项提供`Vue`实例对象的挂载点，最终`Vue`实例将编译出一个`DOM`对象替换`el`对象的`DOM`。
 
+`el`的值可以是一个选择器`String`也可以是一个DOM `HTMLElement`元素，这样提供我们动态挂载Vue实例对象的能力，可以先`new Vue()`时不提供`el`值，得到`vm`对象后动态决定挂载点，调用`vm.$mount()`进行手动挂载。
+
 {% asset_img vue_el_option_init.png %}
 
 ### `data`选项
@@ -112,6 +138,8 @@ Vue实例化时做了很多事情。
 - **Details:**
 
   The data object for the Vue instance. Vue will recursively convert its properties into getter/setters to make it "reactive". **The object must be plain**: native objects such as browser API objects and prototype properties are ignored. A rule of thumb is that data should just be data - it is not recommended to observe objects with its own stateful behavior.
+
+`data`选项的值可以是`Object`，一般在根实例中这样定义；可以是`Function`，组件中必须是`Function`。原因是javascript的对象是可变对象，这样做可以避免多个组件实例公用同样的对象引用。
 
 实例化过程中有一个过程是`this._initData()`，在这个过程的最后一步是调用`function observe (value, vm) {}`，即`observe(this.data, this)`。
 结果是`data`对象的`__ob__`保存新建的`Observer`对象，且此`__ob__.value`属性保存`data`选项对象。同时会遍历`data`选项对象的每个键值，使用ES6的`Object.defineProperty`定义其Getter和Setter。如果键值也是对象，会递归调用`observe`函数，即`observe(key)`。
@@ -291,8 +319,8 @@ Watcher.prototype.teardown = function() {}      // 清楚一个watcher，遍历�
     _locked: false,
     _scope: undefined,
     _update() {},
-    // 每个directive对象都会持有一个watcher对象
-    _watcher: {
+
+    _watcher: {                   // 每个directive对象都会持有一个watcher对象
         id: 1,
         active: true,
         cb(val, oldVal) {},
@@ -316,16 +344,16 @@ Watcher.prototype.teardown = function() {}      // 清楚一个watcher，遍历�
         value: "hello world"
     },
     arg: undefined,
-    attr: "data",        // 因为是data选项中定义的属性，所以值为data，如果只是简单text则为textContent
-    descriptor: Object,  // token.descriptor
-    bind: bind(),        // token.descriptor.bind
-    update(value) {},     // token.descriptor.update
-    el: Text,             // DOM中的Text类实例
+    attr: "data",               // 因为是data选项中定义的属性，所以值为data，如果只是简单text则为textContent
+    descriptor: Object,         // token.descriptor
+    bind: bind(),               // token.descriptor.bind
+    update(value) {},           // token.descriptor.update
+    el: Text,                   // DOM中的Text类实例
     expression: "message",
     filters: undefined,
     literal: undefined,
     modifiers: undefined,
-    name: "text",         // 标明此directive对象注册时key为text，自定义directive时将由Vue.directive(name, Object)提供name
+    name: "text",               // 标明此directive对象注册时key为text，自定义directive时将由Vue.directive(name, Object)提供name
     vm : Vue
 }
 ```
@@ -351,18 +379,184 @@ Dep.prototyp.depend = function() {}        // 将自身增加当Dep.target的依
 Dep.prototyp.notify   = function() {}        // 遍历调用subs里对象的update方法，即发布更新
 ```
 #### Binding流程
-下面使用流程图展示这个过程中的行为。
+下面使用流程图总结一下这个过程中的行为。
 {% asset_img vue_binding_sequence.png %}
 
-**workshop**
-debug `vm.message = 'Goodbye World'`时的执行时序
+**Workshop**  debug `vm.message = 'Goodbye World'`时的执行时序
 
-### 编译模板
+# 指令处理
 `Vue`会根据写在`template`里的模板编译出`DOM`对象。`template`模板本身是`html`代码，`Vue`的功能通过写在html代码里的指令，`mustache`代码以及自定义`tag`实现。
-模板的编译本质上是手动创建`DOM`树的过程。`html`中我们重点关注`Element Node`,`Attribute Node`,`Text Node`。
+模板的编译本质上是手动创建`DOM`树的过程。Vue中指令主要有`v-*`指令以及`{{ mustache }}`指令，还有`number`, `transition`, `keep-alive`等属性指令，还有`<component></component>`等元素指令，还有自定义组件标签指令。
 
-#### `v-*`指令编译
-#### 自定义标签编译
+## Terminal指令
+### `v-if`指令
+#### `v-if` **compile**
+开始前，我们需要小小修改下实例代码，如下。
+```html
+<div id="app">
+  This is a <span v-if="show">{{ message }}</span>.
+</div>
+```
+```javascript
+import Vue from 'vue';
+const vm = new Vue({
+  el: '#app',
+  data: {
+    show: true,
+    message: 'Hello Vue.js!'
+  }
+})
+```
+
+结合之前讲的过程，直接从compile阶段开始。
+```javascript
+function compileElement(el, options) {
+  // preprocess textareas.
+  // textarea treats its text content as the initial value.
+  // just bind it as an attr directive for value.
+  // ...
+
+  var linkFn;
+  var hasAttrs = el.hasAttributes();
+  var attrs = hasAttrs && toArray(el.attributes);
+  // check terminal directives (for & if)
+  if (hasAttrs) {
+    linkFn = checkTerminalDirectives(el, attrs, options);
+  }
+  // check element directives
+  if (!linkFn) {
+    linkFn = checkElementDirectives(el, options);
+  }
+  // check component
+  if (!linkFn) {
+    linkFn = checkComponent(el, options);
+  }
+  // normal directives
+  if (!linkFn && hasAttrs) {
+    linkFn = compileDirectives(attrs, options);
+  }
+  return linkFn;
+}
+```
+上面代码会从`el`选项指示的挂载点`div#app`开始，可以断定，在实例代码中，会执行两次，第一次针对`div#app`, 第二次针对`span`。跳过对`div#app`的编译过程，直接看对`span`执行的过程。
+代码标明对指令的处理主要经过了两个过程：check和compile。其中check会分别检查**terminal directive**，**element directive**， **component**。其中**terminal directive**指的是`v-*`指令，**element directive**指类似`<component></component>`这样的自定义标签指令，**component**指令指自Vue组件。
+实例代码比较简单所以只会执行`checkTerminalDirectives`。
+
+```javascript
+function checkTerminalDirectives(el, attrs, options) {
+  // skip v-pre
+  // ...
+  // skip v-else block, but only if following v-if
+  // ...
+  var attr, name, value, modifiers, matched, dirName, rawName, arg, def, termDef;
+  for (var i = 0, j = attrs.length; i < j; i++) {
+    attr = attrs[i];
+    name = attr.name.replace(modifierRE, '');
+    if (matched = name.match(dirAttrRE)) {
+      def = resolveAsset(options, 'directives', matched[1]);
+      if (def && def.terminal) {
+        if (!termDef || (def.priority || DEFAULT_TERMINAL_PRIORITY) > termDef.priority) {
+          termDef = def;
+          rawName = attr.name;
+          modifiers = parseModifiers(attr.name);
+          value = attr.value;
+          dirName = matched[1];
+          arg = matched[2];
+        }
+      }
+    }
+  }
+
+  if (termDef) {
+    return makeTerminalNodeLinkFn(el, dirName, value, options, termDef, rawName, arg, modifiers);
+  }
+}
+```
+这个过程会遍历element attribute node列表，`name.match(dirAttrRE)`来匹配到需要处理的`v-*`指令。这里`dirAttrRE`是正则表达式：`/^v-([^:]+)(?:$|:(.*)$)/`。
+对每个特定的terminal directive，`def = resolveAsset(options, 'directives', matched[1])`获取内置的指令`def`对象, 实例中即为`def = resolveAsset(options, 'directives', 'if')`。Terminal directive 的`def`对象在'src/directives/public/'目录下定义，每个`def`对象定义了`bind`过程中调用的接口方法, 如下所示：
+```javascript
+{
+  priority: DEFAULT_TERMINAL_PRIORITY,
+  terminal: true,
+  bind() {},
+  update(value) {},
+  insert() {},
+  remove() {},
+  updateRef() {},
+  unbind() {}
+}
+```
+这个`def`对象，讲解`Text Node`编译过程中也涉及到了，当时只有`bind`和`update`方法。
+
+#### `v-if` link
+编译完成后，将进行`link`过程。此过程和Text Node的link过程基本一致，最终会执行如下代码：
+```javascript
+this._directives.push(
+  new Directive(
+    descriptor, // 编译过程中token中标记的discriptor
+    this,       // 当前Vue实例
+    node,       // 创建的对应DOM node对象
+    host,       // 宿主DOM node
+    scope,
+    frag
+  )
+);
+
+// descriptor:
+{
+  arg: undefined,
+  attr: 'v-if',
+  def: {},              // 上文有详述，略去细节
+  expression: 'show',
+  filters: undefined,
+  modifiers: {}         // 空对象
+  name: 'if',
+  raw: 'show'
+}
+// node: <span v-if="show"> {{ show }}</span>
+```
+#### `v-if` **bind**
+上面**link**过程结束后，会开始**bind**过程，具体请见上一节。`v-if`的**bind**过程中多态部分是执行`v-if def`对象上的`bind() {}`的过程。如下代码所示：
+```javascript
+function bind() {
+    var el = this.el;
+    if (!el.__vue__) {
+      // check else block
+      // ...
+      // check main block
+      this.anchor = createAnchor('v-if');
+      replace(el, this.anchor);
+    } else {
+      // debug info
+    }
+}
+```
+这个过程其实就是简单的创建了一个空白的Text Node替换了`<span></span>`DOM元素，所以页面中开始出现`{{ message }}`会出现短暂地变成空白。但是`createAnchor`的设计意图可以深究一下，目前所知就是为了和后面的**初始化update**结合使用，`update`环节会获取`show`的值，根据值计算节点, 调用`def.insert`方法，将正式DOM插入到`createAnchor`所在位置。
+
+**bind**的其他过程同上节所示。
+
+### `v-for`指令
+`v-for`指令的**compile**和**link**过程和`v-if`指令大致相同，区别仅在**bind**过程调用`def.bind`和`def.update`上。
+但是`v--for`指令有性能优化的问题要解决，比如列表更新时如何最少化DOM操作，如何进行实例缓存等。
+Vue使用`diff`算法解决列表渲染中列表动态变化的问题。
+
+### `v-bind`指令
+类似{{ mustache }}的处理，但是涉及不同情况的细节处理。
+
+### `v-on`指令
+
+### `v-model`
+## `Element`指令
+### `<component></component>`指令
+### `<slot></slot>`指令
+## `Component`指令
+
+# 计算属性
+# 组件
+## `props`选项
+## 组件通信
+##
+## 推荐阅读
 
 ## 更高效阅读源码
 ### 确定目标问题
